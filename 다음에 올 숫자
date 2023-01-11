@@ -1,0 +1,14 @@
+import Foundation
+
+func solution(_ c:[Int]) -> Int {
+    // 등차?
+    if (c[1] - c[0]) == (c[2] - c[1]) {
+        return c[c.count - 1] + (c[1] - c[0])
+    }
+    // 등비?
+    if (c[1] / c[0]) == (c[2] / c[1]) {
+        var ans = c[c.count - 1] * (c[2] / c[1])
+        return ans
+    }
+    return 0
+}
