@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ babbling:[String]) -> Int {
+    var ans = 0
+    for b in babbling {
+        var str = b
+        str = str.replacingOccurrences(of:"ma", with:" ")
+        str = str.replacingOccurrences(of:"aya", with:" ")
+        str = str.replacingOccurrences(of:"woo", with:" ")
+        str = str.replacingOccurrences(of:"ye", with:" ")
+        str = str.replacingOccurrences(of:" ", with:"")
+        if str == "" { ans += 1 } 
+
+    }
+    
+    return ans
+}
