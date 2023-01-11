@@ -1,0 +1,11 @@
+import Foundation
+
+func solution(_ num:Int, _ total:Int) -> [Int] {
+    var center = total / num
+    let a = (total / num) - (num - 1) / 2
+    var ans: [Int] = []
+    for i in 0..<num {
+        ans.append(i + a)
+    }
+    return ans
+}
