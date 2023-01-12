@@ -1,0 +1,8 @@
+import Foundation
+
+func solution(_ my_string:String) -> String {
+    var str = my_string.lowercased()
+    var arr = Array(str).sorted()
+    
+    return String(arr)
+}
