@@ -1,0 +1,29 @@
+import Foundation
+
+func solution(_ quiz:[String]) -> [String] {
+    var res: [String] = []
+    for q in quiz {
+        let arr = q.split(separator: " ")
+        let a = Int(arr[0])!
+        let op = arr[1]
+        let b = Int(arr[2])!
+        let ans = Int(arr[4])!
+        
+        if op == "+" {
+            if a + b == ans {
+                res.append("O")
+            } else {
+                res.append("X")
+            }
+        } else {
+            if a - b == ans {
+                res.append("O")
+            } else {
+                res.append("X")
+            }
+        }
+        
+        
+    }
+    return res
+}
