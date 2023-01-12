@@ -1,0 +1,26 @@
+import Foundation
+
+func solution(_ A:String, _ B:String) -> Int {
+    if A == B {return 0}
+    let r = right(A, B)
+    if r == -1 { return -1 }
+    else { return r }
+
+    return 0
+}
+
+func right(_ A:String, _ B:String) -> Int {
+    let b = Array(B) 
+    var l: [Character] = []
+    var r: [Character] = Array(A)
+    
+    for i in 1...b.count {
+        let c = r.removeLast()
+        l.insert(c, at: 0)
+        
+        if l + r == b {
+            return i
+        } 
+    }
+    return -1
+}
