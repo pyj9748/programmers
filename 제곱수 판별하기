@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ n:Int) -> Int {
+    for i in 1...1000 {
+        let cr = i * i
+        if cr == n {
+            return 1
+        }
+        if cr > n {
+            return 2
+        }
+    }
+    
+    return 2
+}
