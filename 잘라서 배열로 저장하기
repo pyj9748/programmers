@@ -1,0 +1,18 @@
+import Foundation
+
+func solution(_ my_str:String, _ n:Int) -> [String] {
+    var arr = Array(my_str)
+    var temp = ""
+    var ans: [String] = []
+    for i in 0..<arr.count {
+        if temp.count < n {
+            temp += String(arr[i])
+        } else {
+            ans.append(temp)
+            temp = String(arr[i])
+        }
+    }
+    ans.append(temp)
+    
+    return ans
+}
