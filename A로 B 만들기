@@ -1,0 +1,8 @@
+import Foundation
+
+func solution(_ before:String, _ after:String) -> Int {
+    var b = Array(before).sorted()
+    var a = Array(after).sorted()
+    if a == b { return 1 }
+    return 0
+}
