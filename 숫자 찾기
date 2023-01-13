@@ -1,0 +1,11 @@
+import Foundation
+
+func solution(_ num:Int, _ k:Int) -> Int {
+    var arr = Array(String(num))
+    for i in 0..<arr.count {
+        if String(k) == String(arr[i]) {
+            return (i + 1)
+        }
+    }
+    return -1
+}
