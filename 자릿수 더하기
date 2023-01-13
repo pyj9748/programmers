@@ -1,0 +1,12 @@
+import Foundation
+
+func solution(_ n:Int) -> Int {
+    var ans = 0
+    var str = String(n)
+    for c in str {
+        ans += Int(String(c))!
+    }
+    
+    
+    return ans
+}
