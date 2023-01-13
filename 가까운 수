@@ -1,0 +1,12 @@
+import Foundation
+
+func solution(_ array:[Int], _ n:Int) -> Int {
+    var m = Int.max
+    for i in array {
+        if abs(m - n) > abs(i - n) {
+            m = i
+        }
+    }
+    
+    return m
+}
