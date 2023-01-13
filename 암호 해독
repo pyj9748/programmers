@@ -1,0 +1,12 @@
+import Foundation
+
+func solution(_ cipher:String, _ code:Int) -> String {
+    var arr = Array(cipher)
+    var idx = code - 1
+    var ans = ""
+    while idx < cipher.count {
+        ans += String(arr[idx])
+        idx += code
+    }
+    return ans
+}
