@@ -1,0 +1,10 @@
+import Foundation
+
+func solution(_ sides:[Int]) -> Int {
+    let abc = sides.reduce(0, +)
+    let a = sides.max()!
+    if abc - a > a {
+        return 1
+    }
+    return 2
+}
