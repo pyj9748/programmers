@@ -1,0 +1,9 @@
+import Foundation
+
+func solution(_ s1:[String], _ s2:[String]) -> Int {
+    var a = Set<String>(s1)
+    
+    var b = Set<String>(s2)
+    
+    return a.intersection(b).count
+}
