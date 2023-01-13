@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ s:String) -> String {
+    var dict: [Character : Int] = [:]
+    var ans = ""
+    for c in s {
+        var a = dict[c] != nil ? dict[c]! : 0
+        a += 1
+        dict[c] = a
+    }
+    let keys = dict.keys.filter { dict[$0]! == 1 }.sorted() 
+    for key in keys {
+        ans += "\(String(key))"
+    }
+    return ans
+}
