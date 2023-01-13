@@ -1,0 +1,12 @@
+import Foundation
+
+func solution(_ n:Int) -> [Int] {
+    var ans: Set<Int> = []
+    for i in 1...n {
+        if n % i == 0 {
+            ans.insert(i)
+            ans.insert(n / i)
+        }
+    }
+    return Array<Int>(ans).sorted()
+}
