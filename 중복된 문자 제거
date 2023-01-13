@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ my_string:String) -> String {
+    var dict: [Character: Int] = [:]
+    var ans = ""
+    for c in my_string {
+        if let a = dict[c] {
+            continue            
+        } else {
+            ans += String(c)
+            dict[c] = 1
+        }
+    }
+    
+    return ans
+}
