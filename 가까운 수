@@ -1,10 +1,13 @@
 import Foundation
 
 func solution(_ array:[Int], _ n:Int) -> Int {
-    var m = Int.max
+    var m = 10000
     for i in array {
         if abs(m - n) > abs(i - n) {
             m = i
+        }
+        else if abs(m - n) == abs(i - n) {
+            m = min(m,i)
         }
     }
     
