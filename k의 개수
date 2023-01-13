@@ -1,0 +1,14 @@
+import Foundation
+
+func solution(_ i:Int, _ j:Int, _ k:Int) -> Int {
+    var ans = 0
+    let key = String(k)
+    for n in i...j {
+        for c in String(n) {
+            if String(c) == key {
+               ans += 1 
+            }
+        }
+    }
+    return ans
+}
