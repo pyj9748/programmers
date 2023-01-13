@@ -1,0 +1,18 @@
+import Foundation
+
+func solution(_ my_string:String) -> String {
+    var ans = ""
+    var arr = Array(my_string)
+    for i in 0..<arr.count {
+        if (65...90).contains(arr[i].asciiValue!) {
+            arr[i] = Character(String(arr[i]).lowercased())
+        } else {
+            arr[i] = Character(String(arr[i]).uppercased())
+        }
+
+    }
+    for i in arr {
+        ans += String(i)
+    }
+    return ans
+}
