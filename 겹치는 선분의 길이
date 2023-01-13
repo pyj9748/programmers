@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ lines:[[Int]]) -> Int {
+    var dict: [Int : Int] = [:]
+    for line in lines {
+        for i in line[0]..<line[1] {
+            var a = dict[i] != nil ? dict[i]! : 0
+            dict[i] = a + 1
+        }
+    }
+    
+    
+    return dict.keys.filter {
+        dict[$0]! >= 2
+    }.count
+}
