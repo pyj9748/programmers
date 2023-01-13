@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ my_string:String) -> Int {
+    var arr = my_string.split(separator: " ")
+    var ans = Int(arr[0])!
+    var op = 1
+    for i in 1..<arr.count {
+        if arr[i] == "+" {
+            op = 1
+        } else if arr[i] == "-" {
+            op = -1
+        } else {
+            ans += op * Int(arr[i])!
+        }
+    }
+    return ans
+}
