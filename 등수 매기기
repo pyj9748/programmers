@@ -1,0 +1,25 @@
+import Foundation
+
+func solution(_ score:[[Int]]) -> [Int] {
+    var dict: [Double : [Int]] = [:]
+    for idx in 0..<score.count {
+        if var a = dict[Double(score[idx][0] + score[idx][1]) / 2.0] {
+            a.append(idx)
+            dict[Double(score[idx][0] + score[idx][1]) / 2.0] = a
+        } else {
+            dict[Double(score[idx][0] + score[idx][1]) / 2.0] = [idx]
+        }
+    }
+    let keys = dict.keys.sorted(by:>)
+    var ans: [Int] = Array(repeating: 0, count: score.count)
+    var cnt = 1
+    for i in 0..<keys.count {
+        var temp = 0
+        for a in dict[keys[i]]! {
+            ans[a] = cnt
+            temp += 1
+        }
+        cnt += temp
+    }
+    return ans
+}
