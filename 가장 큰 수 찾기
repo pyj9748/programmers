@@ -1,0 +1,6 @@
+import Foundation
+
+func solution(_ array:[Int]) -> [Int] {
+    let a = array.max()!
+    return [a, array.firstIndex(of: a)!]
+}
