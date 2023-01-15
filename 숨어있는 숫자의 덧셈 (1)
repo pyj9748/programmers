@@ -1,0 +1,11 @@
+import Foundation
+
+func solution(_ my_string:String) -> Int {
+    var ans = 0
+    for c in my_string {
+        if let num = Int(String(c)) {
+            ans += num
+        }
+    }
+    return ans
+}
