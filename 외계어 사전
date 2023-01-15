@@ -1,0 +1,23 @@
+import Foundation
+
+func solution(_ spell:[String], _ dic:[String]) -> Int {
+    var target = Set<Character>()
+    for s in spell {
+        for c in s {
+            target.insert(c)
+        }
+    }
+    for d in dic {
+        if d.count != spell.count { continue }
+        var s = Set<Character>()
+        for c in d {
+            s.insert(c)
+        }
+        if target == s { 
+        return 1
+        }
+    }
+    
+    
+    return 2
+}
