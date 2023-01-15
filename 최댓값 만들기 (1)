@@ -1,0 +1,9 @@
+import Foundation
+
+func solution(_ numbers:[Int]) -> Int {
+    var arr = numbers
+    arr.sort()
+    let a = arr.removeLast()
+    let b = arr.removeLast()
+    return a * b
+}
