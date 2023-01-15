@@ -1,0 +1,47 @@
+import Foundation
+
+func solution(_ polynomial:String) -> String {
+    var a = 0
+    var b = 0
+    var arr = polynomial.split(separator: " ").map {String($0)}
+    for s in arr {
+        if s == "+" { continue }
+        if s == "x" {
+            a += 1 
+            continue
+        }
+        if s.contains("x") {
+            var temp1 = 0
+            var temp2 = 0
+            for c in s {
+                if c == "x" {
+                    temp1 += temp2
+                    temp2 = 0
+                } else {
+                    if temp2 == 0 { temp2 = Int(String(c))! }
+                    else { temp2 = (temp2 * 10) + Int(String(c))!}
+                }
+            } 
+            a += temp1
+        } else {
+            b += Int(String(s))!
+        }
+    } 
+    var xsection = ""
+    if a == 0 {}
+    else if a == 1 {
+        xsection = "x"
+    } else {
+        xsection = "\(a)x"
+    }
+    if xsection == "" {
+        return "\(b)"
+    } else {
+        if b == 0 {
+            return xsection
+        } else {
+            return "\(xsection) + \(b)"
+        }
+    }
+    
+}
