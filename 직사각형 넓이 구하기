@@ -1,0 +1,18 @@
+import Foundation
+
+func solution(_ dots:[[Int]]) -> Int {
+    var maxX = Int.min
+    var minX = Int.max
+    var maxY = Int.min
+    var minY = Int.max
+    
+    for dot in dots {
+        if maxX < dot[0] { maxX = dot[0] }
+        if minX > dot[0] { minX = dot[0] }
+        if maxY < dot[1] { maxY = dot[1] }
+        if minY > dot[1] { minY = dot[1] }
+    }
+    
+    
+    return (maxX - minX) * (maxY - minY)
+}
