@@ -1,0 +1,22 @@
+import Foundation
+
+func solution(_ my_string:String) -> Int {
+    var arr = Array(my_string)
+    var ans = 0
+    var idx = 0
+    var temp = 0
+    while idx < arr.count {
+        if let a = Int(String(arr[idx])) {
+            if temp == 0 {
+                temp = a
+            } else {
+                temp = (temp * 10) + a
+            }
+        } else {
+            ans += temp
+            temp = 0
+        }
+        idx += 1
+    }
+    return ans
+}
