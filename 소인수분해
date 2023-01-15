@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ n:Int) -> [Int] {
+    var num = n
+    var s = Set<Int>()
+    while num != 1 {
+        for i in 2...n {
+            while num % i == 0 {
+                s.insert(i)
+                num /= i
+            }   
+        }
+    }
+    return Array(s).sorted()
+}
