@@ -18,5 +18,6 @@ func solution(_ my_string:String) -> Int {
         }
         idx += 1
     }
-    return ans
+    
+    return ans + temp
 }
