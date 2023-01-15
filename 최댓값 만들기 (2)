@@ -1,0 +1,32 @@
+import Foundation
+
+func solution(_ numbers:[Int]) -> Int {
+    if numbers.count == 2 {
+        return numbers[0] * numbers[1]
+    }
+    var p: [Int] = []
+    var n: [Int] = []
+    numbers.forEach {
+        if $0 >= 0 {
+            p.append($0)
+        } else {
+            n.append($0)
+        }
+    }
+    p.sort()
+    n.sort()
+    var ans1 = 0
+    if p.count >= 2 {
+        let pmax1 = p.removeLast()
+        let pmax2 = p.removeLast()
+        ans1 = pmax1 * pmax2
+    }
+    var ans2 = 0
+    if n.count >= 2 {
+        let nmax1 = n.removeLast()
+        let nmax2 = n.removeLast()
+        ans2 = nmax1 * nmax2
+    }
+   
+    return max(ans1, ans2)
+}
