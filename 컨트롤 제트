@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ s:String) -> Int {
+    var temp = 0
+    var ans = 0
+    var arr = s.split(separator: " ").map { String($0) }
+    for str in arr {
+        if let num = Int(str) {
+            temp = num
+            ans += num
+        } else {
+            ans -= temp
+        }
+    } 
+    
+    return ans
+}
