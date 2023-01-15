@@ -1,0 +1,26 @@
+import Foundation
+
+func solution(_ keyinput:[String], _ board:[Int]) -> [Int] {
+    let maxX = board[0] / 2
+    let maxY = board[1] / 2
+    
+    var y = 0
+    var x = 0
+    for key in keyinput {
+        switch key {
+        case "up":
+            y = y < maxY ? (y + 1) : y
+        case "down":
+            y = y > -maxY ? (y - 1) : y
+        case "left":
+            x = x > -maxX ? (x - 1) : x
+        case "right":
+            x = x < maxX ? (x + 1) : x
+        default:
+            continue
+        }
+    }
+    
+    
+    return [x,y]
+}
