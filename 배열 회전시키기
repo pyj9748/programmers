@@ -1,0 +1,13 @@
+import Foundation
+
+func solution(_ numbers:[Int], _ direction:String) -> [Int] {
+    var ans = numbers
+    if direction == "left" {
+        let first = ans.removeFirst()
+        ans.append(first)
+    } else {
+        let last = ans.removeLast()
+        ans.insert(last, at: 0)
+    }
+    return ans
+}
