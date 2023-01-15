@@ -1,0 +1,51 @@
+import Foundation
+
+func solution(_ board:[[Int]]) -> Int {
+    var b = board
+    let n = board.count
+    func update(_ r: Int, _ c: Int) {
+         // 상 하 좌 우
+        if r > 0 { 
+            if b[r-1][c] != 1 { b[r-1][c] = -1 }
+        } 
+        if r < n - 1 { 
+            if b[r+1][c] != 1 { b[r+1][c] = -1 } 
+        }
+        if c > 0 {
+            if b[r][c-1] != 1 {  b[r][c-1] = -1  } 
+        }
+        if c < n - 1 { 
+            if b[r][c+1] != 1 {  b[r][c+1] = -1  } 
+        }
+        // 1, 4,7, 11
+        if r > 0 && c < n - 1 { 
+            if b[r-1][c+1] != 1 {  b[r-1][c+1] = -1   } 
+        }
+        if r < n - 1 && c < n - 1 { 
+            if b[r+1][c+1] != 1 {  b[r+1][c+1] = -1   } 
+        }
+        if r < n - 1 && c > 0 { 
+            if b[r+1][c-1] != 1 {  b[r+1][c-1] = -1   } 
+        }
+        if r > 0 && c > 0 { 
+            if b[r-1][c-1] != 1 {  b[r-1][c-1] = -1   } 
+        }
+        
+    }
+    for row in 0..<n {
+        for col in 0..<n {
+            if b[row][col] == 1 {
+                update(row, col)
+            } 
+        }
+    }
+    var ans = 0
+    for row in 0..<n {
+        for col in 0..<n {
+            if b[row][col] == 0 {
+                ans += 1
+            } 
+        }
+    }
+    return ans
+}
