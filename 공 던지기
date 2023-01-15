@@ -1,0 +1,10 @@
+import Foundation
+
+func solution(_ numbers:[Int], _ k:Int) -> Int {
+    var index = 0
+    for i in 1..<k {
+        index = (index + 2) % numbers.count
+    }
+    
+    return numbers[index]
+}
