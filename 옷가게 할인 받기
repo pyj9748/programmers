@@ -1,0 +1,14 @@
+import Foundation
+
+func solution(_ price:Int) -> Int {
+    if price >= 500000 {
+        return price - (price / 5)
+    }
+    if price >= 300000 {
+        return price - (price / 10)
+    }
+    if price >= 100000 {
+        return price - (price / 20)
+    }
+    return 0
+}
