@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ array:[Int]) -> Int {
+    var dict: [Int : Int] = [:]
+    
+    for i in array {
+        let a = dict[i] != nil ? dict[i]! : 0
+        dict[i] = a + 1
+    }
+    let keys = dict.keys.sorted(by : {
+        dict[$0]! > dict[$1]!
+    })
+    if keys.count > 1 && dict[keys[0]]! == dict[keys[1]]! {
+        return -1
+    }
+    return keys[0]
+}
