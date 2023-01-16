@@ -2,13 +2,13 @@ import Foundation
 
 func solution(_ price:Int) -> Int {
     if price >= 500000 {
-        return Int(Double(price) - Double(price / 5))
+        return Int(Double(price) * 0.8)
     }
     if price >= 300000 {
-        return Int(Double(price) - Double(price / 10))
+        return Int(Double(price) * 0.9)
     }
     if price >= 100000 {
-        return Int(Double(price) - Double(price / 20))
+        return Int(Double(price) * 0.95)
     }
     return price
 }
