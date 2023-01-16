@@ -1,0 +1,20 @@
+import Foundation
+
+func solution(_ num_list:[Int], _ n:Int) -> [[Int]] {
+    var ans: [[Int]] = []
+    var temp: [Int] = []
+    var cnt = 0
+    for i in 0..<num_list.count {
+        print(num_list[i], cnt)
+        if cnt < n {
+            temp.append(num_list[i])
+            cnt += 1
+        } else {
+            ans.append(temp)
+            temp = [num_list[i]]
+            cnt = 1
+        }
+    }
+    ans.append(temp)
+    return ans
+}
