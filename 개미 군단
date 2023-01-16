@@ -1,0 +1,13 @@
+import Foundation
+
+func solution(_ hp:Int) -> Int {
+    var num = hp
+    var ans = 0
+    ans += num / 5
+    num %= 5
+    ans += num / 3
+    num %= 3
+    ans += num
+    
+    return ans
+}
