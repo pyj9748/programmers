@@ -1,0 +1,9 @@
+import Foundation
+
+func solution(_ slice:Int, _ n:Int) -> Int {
+    var ans = 1
+    while ans * slice < n {
+        ans += 1
+    }
+    return ans
+}
