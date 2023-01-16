@@ -1,0 +1,22 @@
+import Foundation
+
+func solution(_ age:Int) -> String {
+    var arr = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j"
+    ]
+    var ans = ""
+    var str = String(age)
+    for c in str {
+        ans += arr[Int(String(c))!]
+    }
+    return ans
+}
