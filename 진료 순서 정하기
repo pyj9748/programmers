@@ -1,0 +1,14 @@
+import Foundation
+
+func solution(_ emergency:[Int]) -> [Int] {
+    var e = emergency.sorted(by: >)
+    var dict: [Int : Int] = [:]
+    for i in 0..<e.count {
+        dict[e[i]] = i + 1
+    }
+    var ans = [Int]()
+    for i in emergency {
+        ans.append(dict[i]!)
+    }
+    return ans
+}
