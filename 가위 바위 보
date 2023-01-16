@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ rsp:String) -> String {
+    var ans = ""
+    for c in rsp {
+        if c == "0" {
+            ans += "5"
+        } else if c == "2" {
+            ans += "0"
+        } else {
+            ans += "2"
+        }
+        
+    }
+    return ans
+}
