@@ -4,6 +4,6 @@ func solution(_ num1:Int, _ num2:Int) -> Int {
     let d1 = Double(num1)
     let d2 = Double(num2)
     var d = d1 / d2
-    d = d * 1000
+    d = d * 1000.0
     return Int(d)
 }
