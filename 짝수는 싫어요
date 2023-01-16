@@ -1,0 +1,11 @@
+import Foundation
+
+func solution(_ n:Int) -> [Int] {
+    var i = 1
+    var ans = [Int]()
+    while i <= n {
+        ans.append(i)
+        i += 2
+    }
+    return ans
+}
