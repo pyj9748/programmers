@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ numbers:[Int]) -> Int {
+    var s = Set<Int>()
+    for num in numbers {
+        s.insert(num)
+    }
+    var ans = 0
+    for i in 1...9 {
+        if !s.contains(i) {
+            ans += i
+        }
+    }
+    
+    return ans
+}
