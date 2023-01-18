@@ -1,0 +1,38 @@
+import Foundation
+var ans = 0
+func solution(_ s:String) -> Int {
+    if s.count == 1 {
+        return 1
+    }
+    recur(Array(s))
+    return ans
+}
+
+func recur(_ arr: [Character]) {
+    //print(arr)
+    var cnt1 = 0
+    var cnt2 = 0
+    let x = arr[0]
+    if arr.count == 1 {
+        ans += 1 
+        return
+    }
+    for i in 0..<arr.count {
+        if arr[i] == x {
+            cnt1 += 1
+        } else {
+            cnt2 += 1
+        }
+        if cnt1 == cnt2 {
+            if i == arr.count - 1 {
+                ans += 1
+                return
+            } else {
+                ans += 1
+                recur(Array(arr[(i + 1)..<arr.count]))
+                return
+            }
+        }
+    }
+    ans += 1
+}
