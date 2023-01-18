@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ s:String) -> [Int] {
+    var dict: [Character : Int] = [:]
+    var ans: [Int] = []
+    var arr = Array(s)
+    for i in 0..<arr.count {
+        if let a = dict[arr[i]] {
+            ans.append(i - a)
+        } else {
+            ans.append(-1)
+        }
+        dict[arr[i]] = i
+    }
+
+    return ans
+}
