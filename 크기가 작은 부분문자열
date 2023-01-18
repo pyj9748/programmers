@@ -1,0 +1,22 @@
+import Foundation
+
+func solution(_ t:String, _ p:String) -> Int {
+    let len = p.count
+    let num = Int(p)!
+    let arr = Array(t).map { String($0) }
+    var temp: [String] = []
+    var ans = 0
+    for i in 0..<arr.count {
+        if temp.count < len {
+            temp.append(arr[i])
+        } else {
+            temp.removeFirst()
+            temp.append(arr[i])
+        }
+        if temp.count == len && Int(temp.reduce("", +))! <= num  {
+            ans += 1
+        }
+    }
+     
+    return ans 
+}
