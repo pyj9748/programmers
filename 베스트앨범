@@ -1,0 +1,47 @@
+import Foundation
+struct Song {
+    let play: Int
+    let num: Int
+}
+func solution(_ genres:[String], _ plays:[Int]) -> [Int] {
+    var dict: [String: [Song]] = [:]
+    for i in 0..<genres.count {
+        let s = Song(play: plays[i] , num: i)
+        var temp = dict[genres[i]] != nil ? dict[genres[i]]! : [Song]()
+        temp.append(s)
+        dict[genres[i]] = temp
+    }
+    let keys = dict.keys.sorted(by: {
+        var a = 0
+        for i in 0..<dict[$0]!.count {
+            a += dict[$0]![i].play
+        }
+        var b = 0
+        for i in 0..<dict[$1]!.count {
+            b += dict[$1]![i].play
+        }
+        if a > b { return true }
+        return false
+    })
+    var ans = [Int]()
+    for key in keys {
+        var arr = dict[key]!
+        arr.sort(by: {
+            if $0.play > $1.play { return true}
+            else if $0.play == $1.play && $0.num < $1.num  {
+               return true     
+            }
+            return false
+        })
+        if arr.count < 2{
+
+            ans.append(arr[0].num)
+        } else {
+            ans.append(arr[0].num)
+            ans.append(arr[1].num)
+        }
+     
+        
+    }
+    return ans
+}
