@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ clothes:[[String]]) -> Int {
+    var dict: [String : [String]] = [:]
+    for arr in clothes {
+        var temp = dict[arr[1]] != nil ? dict[arr[1]]! : [String]()
+        temp.append(arr[0])
+        dict[arr[1]] = temp
+    }
+    var temp = 1
+    for key in dict.keys {
+        temp *= (dict[key]!.count + 1)
+    }
+    return temp - 1
+}
