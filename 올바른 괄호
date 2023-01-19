@@ -1,0 +1,24 @@
+import Foundation
+
+func solution(_ s:String) -> Bool
+{
+    var ans: Bool = false
+    var st: [Character] = []
+    for c in s {
+        if c == "(" {
+            st.append(c)
+        } else {
+            if let top = st.last {
+                if top == "(" {
+                    st.removeLast()
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }
+    }
+    
+    return st.count == 0 ? true : false
+}
