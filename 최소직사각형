@@ -1,0 +1,13 @@
+import Foundation
+
+func solution(_ sizes:[[Int]]) -> Int {
+    var max1 = 0
+    var max2 = 0
+    for size in sizes {
+        let m = max(size[0], size[1])
+        let n = min(size[0], size[1])
+        if max1 < m { max1 = m }
+        if max2 < n { max2 = n }
+    }
+    return max1 * max2
+}
