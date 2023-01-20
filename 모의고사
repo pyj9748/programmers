@@ -1,0 +1,23 @@
+import Foundation
+
+func solution(_ answers:[Int]) -> [Int] {
+    var s1: [Int] = [1, 2, 3, 4, 5]
+    var s2: [Int] = [2, 1, 2, 3, 2, 4, 2, 5]
+    var s3: [Int] = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    var dict: [Int : Int] = [1 : 0, 2 : 0, 3 : 0]
+    for i in 0..<answers.count {
+        if s1[i % 5] == answers[i] {
+            dict[1] = dict[1]! + 1
+        }
+        if s2[i % 8] == answers[i] {
+            dict[2] = dict[2]! + 1
+        }
+        if s3[i % 10] == answers[i] {
+            dict[3] = dict[3]! + 1
+        }
+    }
+    var key = dict.keys.filter {
+        dict[$0]! == dict.values.max()!
+    }.sorted()
+    return key
+}
