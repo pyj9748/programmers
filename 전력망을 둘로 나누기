@@ -1,0 +1,47 @@
+import Foundation
+var dict: [Int : Set<Int>] = [:]
+var total = 0
+func solution(_ n:Int, _ wires:[[Int]]) -> Int {
+    var ans = Int.max
+    total = n
+    for wire in wires {
+        var a = dict[wire[0]] != nil ? dict[wire[0]]! : Set<Int>()
+        a.insert(wire[1])
+        dict[wire[0]] = a
+        
+        var b = dict[wire[1]] != nil ? dict[wire[1]]! : Set<Int>()
+        b.insert(wire[0])
+        dict[wire[1]] = b
+    }
+    
+    for wire in wires {
+        let temp = cut(wire[0], wire[1])
+        if ans > temp { ans = temp }
+    }
+
+    return ans
+}
+
+func cut(_ a: Int, _ b: Int) -> Int {
+    var visited = Array(repeating: 0, count: total + 1)
+    var st: [Int] = []
+    var cnt = 0
+    st.append(b)
+    while !st.isEmpty {
+        let top = st.removeLast()
+        visited[top] = 1
+        cnt += 1
+        if let childs = dict[top] {
+          for c in childs {
+              if c == a && top == b {
+                  continue
+              }
+              if visited[c] == 0 {
+                  st.append(c)
+              }
+          }
+        } 
+    }
+    let other = total - cnt
+    return abs(other - cnt)
+}
