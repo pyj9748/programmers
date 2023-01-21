@@ -1,0 +1,15 @@
+func solution(_ strings:[String], _ n:Int) -> [String] {
+    var arr = strings
+    arr.sort(by: {
+       
+        if $0[$0.index($0.startIndex, offsetBy: n)] < $1[$1.index($1.startIndex, offsetBy: n)] {
+            return true
+        } else if $0[$0.index($0.startIndex, offsetBy: n)] == $1[$1.index($1.startIndex, offsetBy: n)] {
+            if $0 < $1 { return true } else { return false }
+        } else {
+            return false
+        }
+        
+    })
+    return arr
+}
