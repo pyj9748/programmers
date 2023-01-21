@@ -1,0 +1,7 @@
+import Foundation
+
+func solution(_ n:Int) -> Int {
+    var str = String(n, radix: 3)
+    str = String(str.reversed())
+    return Int(str, radix: 3)!
+}
