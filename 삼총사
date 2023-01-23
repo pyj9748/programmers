@@ -1,0 +1,25 @@
+import Foundation
+var ans = 0
+var len = 0
+var arr = [Int]()
+func solution(_ number:[Int]) -> Int {
+    len = number.count
+    arr = number
+    for i in 0..<(len - 2) {
+        recur(1, arr[i], i)
+    }
+    
+    return ans
+}
+
+func recur(_ depth: Int, _ val: Int, _ index: Int) {
+    if depth == 3 && val == 0 {
+        ans += 1
+    }
+    
+    if depth < 3 {
+        for i in (index + 1)..<len {
+            recur(depth + 1, val + arr[i], i)
+        }
+    }
+}
