@@ -1,0 +1,55 @@
+import Foundation
+var dict: [Int: Set<Int>] = [:]
+var ans = -1
+var target = 0
+func solution(_ N:Int, _ number:Int) -> Int {
+    if N == number { return 1 }
+    target = number
+    dict[1] = [N]
+    for i in 2...8 {
+        var temp = dict[i] != nil ? dict[i]! : Set<Int>()
+        var nn = ""
+        for s in 0..<i {
+            nn += String(N)
+        }
+        temp.insert(Int(nn)!)
+        dict[i] = temp
+        for j in 1..<i {
+            f(j, i - j)
+            if ans != -1 {
+                return ans
+            }
+        }
+    }
+    return -1
+}
+
+func f(_ i1: Int, _ i2: Int) {
+    let a = dict[i1]!
+    let b = dict[i2]!
+    for i in a {
+        for j in b {
+            var temp = dict[i1+i2] != nil ? dict[i1+i2]! : Set<Int>()
+            // +
+            let t1 = i + j
+            // -
+            let t2 = i - j
+            // /
+            if j != 0 {
+                let t3 = i / j
+                temp.insert(t3)
+            }
+            // *
+            let t4 = i * j
+            temp.insert(t1)
+            temp.insert(t2)
+            temp.insert(t4)
+            if temp.contains(target) {
+                ans = i1 + i2
+                return
+            }
+            dict[i1 + i2] = temp
+            
+        }
+    }
+}
