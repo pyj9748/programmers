@@ -1,0 +1,13 @@
+import Foundation
+
+func solution(_ a:Int, _ b:Int, _ n:Int) -> Int {
+    var emptyB = n
+    var ans = 0
+    while emptyB >= a {
+        let m = emptyB / a
+        emptyB -= m * a
+        emptyB += m * b
+        ans += m * b
+    }
+    return ans
+}
