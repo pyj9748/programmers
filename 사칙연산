@@ -1,0 +1,34 @@
+import Foundation
+
+func solution(_ input_array:[String]) -> Int
+{
+    let operandsCount = (input_array.count / 2) + 1
+    var maxDP = Array(repeating: Array(repeating: Int.min,
+                                       count: operandsCount),
+                      count: operandsCount)
+    var minDP = Array(repeating: Array(repeating: Int.max,
+                                       count: operandsCount),
+                      count: operandsCount)
+    for i in 0..<operandsCount {
+        maxDP[i][i] = Int(input_array[i * 2])!
+        minDP[i][i] = Int(input_array[i * 2])!
+    }
+    
+    for n in 1..<operandsCount {
+        for i in 0..<(operandsCount - n) {
+            let j = i + n 
+            for k in i..<j {
+                if input_array[(2 * k) + 1] == "+" {
+                    maxDP[i][j] = max(maxDP[i][j], maxDP[i][k] + maxDP[k+1][j])
+                    minDP[i][j] = min(minDP[i][j], minDP[i][k] + minDP[k+1][j])
+                } else {
+                    maxDP[i][j] = max(maxDP[i][j], maxDP[i][k] - minDP[k+1][j]);
+                    minDP[i][j] = min(minDP[i][j], minDP[i][k] - maxDP[k+1][j]);
+                }
+                
+            }
+        }
+    }
+    
+    return maxDP[0][operandsCount - 1]
+}
