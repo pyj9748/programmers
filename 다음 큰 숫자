@@ -1,0 +1,21 @@
+import Foundation
+
+func solution(_ n:Int) -> Int
+{
+    let target = stringOneCount(String(n, radix: 2))
+    var answer: Int = n + 1
+    while stringOneCount(String(answer, radix: 2)) != target {
+        answer += 1
+    }
+    return answer
+}
+
+func stringOneCount(_ str: String) -> Int {
+    var count = 0
+    for c in str {
+        if c == "1" {
+            count += 1
+        }
+    }
+    return count
+}
