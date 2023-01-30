@@ -1,0 +1,17 @@
+func solution(_ n:Int) -> Int {
+    if n == 1 {
+        return 1 % 1234567
+    }
+    if n == 2 {
+        return 2 % 1234567
+    }
+    var temp1 = 1 % 1234567
+    var temp2 =  2 % 1234567
+    var ans = 0
+    for i in 3...n {
+        ans = (temp1 + temp2) % 1234567 
+        temp1 = temp2
+        temp2 = ans
+    }
+    return ans
+}
