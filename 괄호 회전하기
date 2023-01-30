@@ -1,0 +1,39 @@
+import Foundation
+
+func solution(_ s:String) -> Int {
+    var ans = 0
+    let arr = Array(s).map { String($0) }
+    for i in 0..<(s.count - 1) {
+        let ri = arr[0..<i].joined()
+        let le = arr[i..<arr.count].joined()
+        if isValid(le + ri) {
+            ans += 1
+        }
+    }
+ 
+    return ans
+}
+func isValid(_ s: String) -> Bool {
+    var arr = Array(s)
+    var st: [Character] = []
+    for c in s {
+        if st.count == 0 {
+            st.append(c)
+        } else {
+            switch c {
+            case ")" :
+                if st.last! == "(" { st.removeLast() }
+            case "}" :
+                if st.last! == "{" { st.removeLast() }
+            case "]" :
+                if st.last! == "[" { st.removeLast() }
+            default : 
+                st.append(c)
+            }
+        }
+    }
+    if st.count == 0 {
+        return true
+    } 
+    return false
+}
