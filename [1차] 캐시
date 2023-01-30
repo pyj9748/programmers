@@ -1,0 +1,21 @@
+func solution(_ cacheSize:Int, _ cities:[String]) -> Int {
+    var dict: [String] = []
+    var ans = 0
+    if cacheSize == 0 {
+        return cities.count * 5
+    }
+    for city in cities {
+        if dict.contains(city.lowercased()) {
+            dict.removeAll(where: {$0 == city.lowercased()})
+            dict.append(city.lowercased())
+            ans += 1
+        } else {
+            if dict.count == cacheSize {
+                dict.removeFirst()
+            }    
+            dict.append(city.lowercased())
+            ans += 5
+        }
+    }
+    return ans
+}
