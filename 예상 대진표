@@ -1,0 +1,28 @@
+import Foundation
+
+func solution(_ n:Int, _ a:Int, _ b:Int) -> Int
+{
+    var n1 = min(a, b)
+    var n2 = max(a, b)
+    var cnt = 1
+    while !isValid(n1, n2) {
+        if n1 % 2 == 0 {
+            n1 /= 2
+        } else {
+            n1 = (n1 / 2) + 1
+        }
+        if n2 % 2 == 0 {
+            n2 /= 2
+        } else {
+            n2 = (n2 / 2) + 1
+        }
+        cnt += 1
+    }
+    return cnt
+}
+func isValid(_ n1: Int, _ n2: Int) -> Bool {
+    if n2 - n1 == 1 && n2 % 2 == 0 {
+        return true
+    }
+    return false
+}
