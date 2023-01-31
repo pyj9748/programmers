@@ -1,0 +1,11 @@
+import Foundation
+
+func solution(_ n:Int, _ left:Int64, _ right:Int64) -> [Int] {
+    var ans = [Int]()
+    for num in left...right {
+        let i = Int(num / Int64(n))
+        let j = Int(num % Int64(n))
+        ans.append(max(i, j) + 1)
+    }
+    return ans
+}
