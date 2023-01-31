@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ s:String) -> [Int] {
+    var arr = s.split(separator: "}").map { $0.replacingOccurrences(of: "{", with: "")}
+        .sorted(by: {
+            $0.count < $1.count
+        }).map { $0.split(separator: ",").map { Int($0)! } }
+     var ans = [Int]()
+    ans.append(contentsOf: arr[0])
+    for i in 0..<(arr.count - 1) {
+        let s1 = Set<Int>(arr[i])
+        let s2 = Set<Int>(arr[i+1])
+        let diff = s2.subtracting(s1)  
+        ans.append(contentsOf: diff)
+    }
+    return ans
+}
