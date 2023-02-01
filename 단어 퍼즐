@@ -1,0 +1,23 @@
+import Foundation
+
+func solution(_ strs:[String], _ t:String) -> Int{
+    var answer:Int = 0
+    var arr = Array(t).map { String($0) }
+    var dp = Array(repeating: 20001, count: arr.count)
+    dp[0] = 0
+    var temp = ""
+    for i in 0..<arr.count {
+        temp += arr[i]
+        dp[i] = 20001
+        for str in strs {
+            if temp == str {
+              dp[i] = 1  
+            } else if temp.hasSuffix(str) {
+                let diff = temp.count - str.count
+                dp[i] = min(dp[diff - 1] + 1, dp[i])
+            }
+        }
+    }
+    if dp[arr.count - 1] == 20001 { return -1 }
+    return dp[arr.count - 1]
+}
