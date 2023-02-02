@@ -1,0 +1,20 @@
+import Foundation
+
+func solution(_ a:[Int], _ b:[Int]) -> Int {
+    var ans = 0
+    let len = a.count
+    var a1 = a.sorted()
+    var b1 = b.sorted()
+    var idx = 0
+    for i in 0..<len {
+        while idx < len {
+            if a1[i] < b1[idx] {
+                ans += 1
+                idx += 1
+                break
+            }
+            idx += 1
+        }
+    }
+    return ans
+}
