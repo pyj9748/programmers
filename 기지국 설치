@@ -1,0 +1,18 @@
+import Foundation
+
+func solution(_ n:Int, _ stations:[Int], _ w:Int) -> Int{
+    var ans = 0
+    var st = 1
+    var span = (2 * w) + 1
+    for station in stations {
+        let cnt = (station - w) - st
+        ans += Int(ceil((Double(cnt) / Double(span))))
+        st = (station + w) + 1
+    }
+    
+    if st <= n {
+        let cnt = (n - st) + 1 
+        ans += Int(ceil((Double(cnt) / Double(span))))
+    } 
+    return ans
+}
