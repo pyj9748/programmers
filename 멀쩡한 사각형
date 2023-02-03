@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ w:Int, _ h:Int) -> Int64{
+    var answer: Int64 = Int64(w * h)
+    let gcd = _gcd(w, h) 
+    let w1 = w / gcd
+    let h1 = h / gcd
+    answer -= Int64(gcd * (w1 + (h1 - 1)))
+    return answer
+}
+func _gcd(_ a: Int, _ b: Int) -> Int {
+    if b == 0 {
+        return a
+    } else {
+        return _gcd(b, a % b)
+    }
+}
