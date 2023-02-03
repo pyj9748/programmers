@@ -1,0 +1,25 @@
+import Foundation
+
+func solution(_ a:[Int]) -> Int {
+    if a.count < 3 {
+      return a.count  
+    } 
+    var lMin = a[0]
+    
+    var rMin = Array(repeating: Int.max, count: a.count)
+    rMin[a.count - 1] = a[a.count - 1]
+    for i in stride(from:a.count - 2, through: 0, by: -1) {
+        rMin[i] = min(rMin[i + 1], a[i])
+    }
+
+    var ans = 2
+    for i in 1..<(a.count - 1) {
+    
+        if a[i] != max(lMin, rMin[i + 1], a[i]) {
+            ans += 1
+        }
+        lMin = min(lMin, a[i])
+        
+    }
+    return ans
+}
