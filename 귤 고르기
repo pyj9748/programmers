@@ -1,0 +1,21 @@
+import Foundation
+
+func solution(_ k:Int, _ tangerine:[Int]) -> Int {
+    var dict: [Int : Int] = [:]
+    for t in tangerine {
+        let a = dict[t] != nil ? dict[t]! : 0
+        dict[t] = a + 1
+    }
+    let keys = dict.keys.sorted(by: {
+        dict[$0]! > dict[$1]! 
+    })
+    var temp = 0
+    for i in 0..<keys.count {
+        temp += dict[keys[i]]!
+        if temp >= k {
+            return i + 1
+        }
+    }
+    
+    return 0
+}
