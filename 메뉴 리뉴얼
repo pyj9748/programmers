@@ -1,0 +1,43 @@
+import Foundation
+var dict = [Int : [String : Int] ]()
+func solution(_ orders:[String], _ course:[Int]) -> [String] {
+
+    for order in orders {
+        for n in course {
+            recur("", Array(order).sorted(), n)
+        }
+    }
+    var ans: [String] = []
+    for key in dict.keys {
+        let d = dict[key]!.filter { $0.value > 1 }
+        var cnt = 0
+        for a in d {
+            if cnt < a.value { cnt = a.value } 
+        }
+        let filtered = d.filter { $0.value >= cnt }
+        for a in filtered {
+            ans.append(a.key)
+        }
+    }
+    
+    return ans.sorted()
+}
+
+func recur(_ temp: String, _ str: [Character], _ depth: Int) {
+    if temp.count == depth { 
+        if var a = dict[temp.count] {
+            if let b = a[temp] {
+                a[temp] = b + 1
+            } else {
+                a[temp] = 1
+            }  
+            dict[temp.count] = a
+        } else {
+            dict[temp.count] = [temp : 1]
+        }
+        return
+    }
+    for i in 0..<str.count {
+        recur(temp + String(str[i]), Array(str[(i + 1)..<str.count]), depth)   
+    }
+}
