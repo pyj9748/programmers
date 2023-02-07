@@ -1,0 +1,87 @@
+import Foundation
+
+func solution(_ n:Int, _ s:Int, _ a:Int, _ b:Int, _ fares:[[Int]]) -> Int {
+    var visited = Array(repeating: false , count: n + 1)
+    var dist = Array(repeating: Int.max, count: n + 1)
+    dist[s] = 0
+    var dict = [Int: [[Int]]]()
+    // 1    
+    for fare in fares {
+        var a = dict[fare[0]] != nil ? dict[fare[0]]! : [[Int]]()
+        a.append([fare[1], fare[2]])
+        dict[fare[0]] = a
+        var b = dict[fare[1]] != nil ? dict[fare[1]]! : [[Int]]()
+        b.append([fare[0], fare[2]])
+        dict[fare[1]] = b
+    }
+    // 2
+    // s
+    var q: [Int] = [s]
+    while !q.isEmpty {
+        q.sort(by: {
+            dist[$0] > dist[$1]
+        })
+        let top = q.removeLast()
+        visited[top] = true
+        for next in dict[top]! {
+            let nextNode = next[0]
+            let weight = next[1]
+            if !visited[nextNode] && dist[nextNode] > (dist[top] + weight) {
+                dist[nextNode] = dist[top] + weight
+                q.append(nextNode)
+            }
+        }
+        
+    }
+    // a
+    visited = Array(repeating: false , count: n + 1)
+    var distA = Array(repeating: Int.max, count: n + 1)
+    distA[a] = 0
+    q = [a]
+    while !q.isEmpty {
+        q.sort(by: {
+            distA[$0] > distA[$1]
+        })
+        let top = q.removeLast()
+        visited[top] = true
+        for next in dict[top]! {
+            let nextNode = next[0]
+            let weight = next[1]
+            if !visited[nextNode] && distA[nextNode] > (distA[top] + weight) {
+                distA[nextNode] = distA[top] + weight
+                q.append(nextNode)
+            }
+        }
+        
+    }
+    
+    // b
+    visited = Array(repeating: false , count: n + 1)
+    var distB = Array(repeating: Int.max, count: n + 1)
+    distB[b] = 0
+    q = [b]
+    while !q.isEmpty {
+        q.sort(by: {
+            distB[$0] > distB[$1]
+        })
+        let top = q.removeLast()
+        visited[top] = true
+        for next in dict[top]! {
+            let nextNode = next[0]
+            let weight = next[1]
+            if !visited[nextNode] && distB[nextNode] > (distB[top] + weight) {
+                distB[nextNode] = distB[top] + weight
+                q.append(nextNode)
+            }
+        }
+        
+     }
+    var ans = Int.max
+    for k in 1...n {
+        if dist[k] < Int.max {
+            print(k, dist[k], distA[k], distB[k], dist[k] + distA[k] + distB[k])
+            ans = min(dist[k] + distA[k] + distB[k], ans)
+        }
+    }
+    return ans
+}
