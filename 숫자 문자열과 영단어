@@ -1,0 +1,74 @@
+import Foundation
+
+func solution(_ s:String) -> Int {
+
+    var str = s
+    var ans = ""
+    while str != "" {
+        if str.hasPrefix("0") {
+            str = String(str.dropFirst(1))
+            ans.append("0")
+        } else if str.hasPrefix("1") {
+            str = String(str.dropFirst(1))
+            ans.append("1")
+        } else if str.hasPrefix("2") {
+            str = String(str.dropFirst(1))
+            ans.append("2")
+        } else if str.hasPrefix("3") {
+            str = String(str.dropFirst(1))
+            ans.append("3")
+        } else if str.hasPrefix("4") {
+            str = String(str.dropFirst(1))
+            ans.append("4")
+        } else if str.hasPrefix("5") {
+            str = String(str.dropFirst(1))
+            ans.append("5")
+        } else if str.hasPrefix("6") {
+            str = String(str.dropFirst(1))
+            ans.append("6")
+        } else if str.hasPrefix("7") {
+            str = String(str.dropFirst(1))
+            ans.append("7")
+        } else if str.hasPrefix("8") {
+            str = String(str.dropFirst(1))
+            ans.append("8")
+        } else if str.hasPrefix("9") {
+            str = String(str.dropFirst(1))
+            ans.append("9")
+        } else if str.hasPrefix("zero") {
+            str = String(str.dropFirst(4))
+            ans.append("0")
+        } else if str.hasPrefix("one") {
+            str = String(str.dropFirst(3))
+            ans.append("1")
+        } else if str.hasPrefix("two") {
+            str = String(str.dropFirst(3))
+            ans.append("2")
+        } else if str.hasPrefix("three") {
+            str = String(str.dropFirst(5))
+            ans.append("3")
+        } else if str.hasPrefix("four") {
+            str = String(str.dropFirst(4))
+            ans.append("4")
+        } else if str.hasPrefix("five") {
+            str = String(str.dropFirst(4))
+            ans.append("5")
+        } else if str.hasPrefix("six") {
+            str = String(str.dropFirst(3))
+            ans.append("6")
+        } else if str.hasPrefix("seven") {
+            str = String(str.dropFirst(5))
+            ans.append("7")
+        } else if str.hasPrefix("eight") {
+            str = String(str.dropFirst(5))
+            ans.append("8")
+        } else if str.hasPrefix("nine") {
+            str = String(str.dropFirst(4))
+            ans.append("9")
+        }
+        
+         
+    } 
+    
+    return Int(ans)!
+}
