@@ -1,0 +1,32 @@
+import Foundation
+
+func solution(_ id_list:[String], _ report:[String], _ k:Int) -> [Int] {
+    // 내가 신고한 ID
+    var d = [String : Int]()
+    var s = [String : Set<String>]()
+    
+    for r in report {
+        let arr = r.split(separator: " ").map { String($0) }
+        var temp = s[arr[0]] != nil ? s[arr[0]]! : Set<String>()
+        if temp.insert(arr[1]).0 != false {
+            let temp2 = d[arr[1]] != nil ? d[arr[1]]! : 0
+            d[arr[1]] = temp2 + 1
+        }
+        s[arr[0]] = temp
+        
+    }
+    // 정지된 아이디 
+    var stopped = [String : Int]() 
+    for key in s.keys {
+        let temp = Array(s[key]!).filter { d[$0]! >= k }.count
+        stopped[key] = temp
+    }
+    // 답
+    //print(stopped, s, d)
+    var ans = [Int]()
+    for id in id_list {
+        let stop = stopped[id] != nil ? stopped[id]! : 0
+        ans.append(stop)
+    }
+    return ans
+}
