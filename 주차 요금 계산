@@ -1,0 +1,44 @@
+import Foundation
+var f = [Int]()
+func solution(_ fees:[Int], _ records:[String]) -> [Int] {
+    f = fees
+    var dict: [String : Int] = [:]
+    var sum: [String : Int] = [:]
+    var ans = [Int]()
+    for record in records {
+        let arr = Array(record.split(separator: " ")).map { String($0) }
+        let time = time2Int(arr[0])
+        let carNum = arr[1]
+        if let _ = dict[carNum] {
+            let timeInterval = time - dict[carNum]!
+            dict[carNum] = nil
+            var temp = sum[carNum] != nil ? sum[carNum]! : 0
+            sum[carNum] = temp + timeInterval
+        } else {
+            dict[carNum] = time
+        }
+    }
+    for key in dict.keys {
+        let endTime = time2Int("23:59") 
+        let stTime = dict[key]!
+        let timeInterval = endTime - stTime
+        var temp = sum[key] != nil ? sum[key]! : 0
+        sum[key] = temp + timeInterval
+    }
+    for key in sum.keys.sorted(by: { $0 < $1 }) {
+        ans.append(cost(sum[key]!))
+    }
+    return ans
+}
+
+func time2Int(_ time: String) -> Int {
+    let arr = time.split(separator: ":").map { Int(String($0))! }
+    return (arr[0] * 60) + arr[1]
+}
+
+func cost(_ time: Int) -> Int {
+    if time < f[0] {
+        return f[1]
+    }
+    return f[1] + (Int(ceil(Double(time -  f[0]) / Double(f[2]))) * f[3])
+}
