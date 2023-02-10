@@ -1,0 +1,24 @@
+import Foundation
+
+func solution(_ n:Int, _ k:Int) -> Int {
+    let str = String(n, radix: k)
+    let arr = Array(str.split(separator: "0")).map {Int(String($0))!}
+    var ans = 0
+    for num in arr {
+        if isPrimeNumber(num) { ans += 1 }
+    }
+    return ans
+}
+
+func isPrimeNumber(_ n: Int) -> Bool {
+    if n < 4 {
+        return n == 1 ? false : true
+    }
+    for i in 2...Int(sqrt(Double(n))) {
+        if n % i == 0 {
+            return false
+        }
+    }
+    
+    return true
+}
