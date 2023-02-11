@@ -1,0 +1,79 @@
+import Foundation
+var maxScore = Int.min
+func solution(_ n:Int, _ info:[Int]) -> [Int] {
+    var arrows = n
+    var _max = 0
+    var candi = Set<[Int]>()
+    var temp = Array(repeating: 0, count: 11)
+    var isValid = true
+    for i in 0..<2048 {
+        var str = Array(String(i, radix: 2)).map {String($0)}
+        let prefixArr = Array(repeating: "0", count: (11 - str.count))
+        str = prefixArr + str 
+        arrows = n
+        temp = Array(repeating: 0, count: 11)
+        for j in 0..<str.count {
+            if str[j] == "1" {
+               if arrows >= info[j] + 1 {
+                    arrows -= info[j] + 1
+                    temp[j] = info[j] + 1
+                    if arrows == 0 {
+                        break
+                    }
+               } 
+            } 
+        }
+        if arrows > 0 { temp[10] += arrows }
+        let s = score(info, temp)
+        if _max < s {
+            _max = s
+            candi = Set<[Int]>()
+            candi.insert(temp)
+        } else if _max == s {
+            candi.insert(temp)
+        }
+
+    }
+    if _max == 0 {
+        return [-1]
+    }
+    if candi.count == 1 {
+        var arr = Array(candi)
+        return arr[0]
+    }
+    var j = 0
+    while candi.count > 1 && j < 11 {
+        var _max_j = 0
+        for a in candi {
+            let idx = 10 - j
+            if _max_j < a[idx] {
+                _max_j = a[idx]
+            }
+        }
+        for a in candi {
+            if a[10 - j] != _max_j {
+                candi.remove(a)
+            }
+        }
+        j += 1
+    }
+
+    var arr = Array(candi)
+    return arr[0]
+    
+}
+
+func score(_ arr1: [Int], _ arr2: [Int]) -> Int {
+    var score1 = 0
+    var score2 = 0
+    for i in 0..<11 {
+        if arr1[i] == 0 && arr2[i] == 0 { 
+             continue
+        } else if  arr1[i] >= arr2[i] {
+            score1 += 10 - i
+        } else {
+            score2 += 10 - i
+        }
+    }
+    return score2 - score1
+} 
