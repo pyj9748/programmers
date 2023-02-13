@@ -1,0 +1,50 @@
+import Foundation
+var visited = Array(repeating: 0, count: 1<<17)
+var le = Array(repeating: -1, count: 20)
+var ri = Array(repeating: -1, count: 20)
+var val = [Int]()
+var n = 0
+var ans = 1
+func solution(_ info:[Int], _ edges:[[Int]]) -> Int {
+    // 
+    n = info.count
+    val = info
+    
+    for edge in edges {
+        let p = edge[0]
+        let c = edge[1]
+        if le[p] == -1 { le[p] = c }
+        else { ri[p] = c }
+    }
+    solve(1)
+    return ans
+}
+func solve(_ state: Int) {
+    
+    if visited[state] == 1 {
+        return
+    }
+    visited[state] = 1
+    var wolf = 0
+    var nodes = 0
+    for i in 0..<n {
+        if state & (1<<i) != 0 {
+            nodes += 1
+            if val[i] == 1 {
+                wolf += 1
+            }
+        }
+    }
+    if 2 * wolf >= nodes { return } 
+    ans = max(ans, nodes - wolf)
+    
+    for i in 0..<n {
+        if (state & (1<<i) == 0) { continue }
+        if le[i] != -1 { 
+            solve(state | (1<<le[i]))
+        }
+        if ri[i] != -1 {
+            solve(state | (1<<ri[i]))
+        }
+    }
+}
