@@ -1,0 +1,36 @@
+import Foundation
+
+func solution(_ survey:[String], _ choices:[Int]) -> String {
+    var dict = [String : Int]()
+    for char in ["R", "T" , "C", "F", "J", "M", "A", "N"] {
+        dict[char] = 0
+    } 
+    for i in 0..<survey.count {
+        let arr = Array(survey[i]).map { String($0) }
+        let negative = arr[0]
+        let positive = arr[1]
+        if choices[i] == 1 || choices[i] == 2 || choices[i] == 3 {
+            dict[negative] = dict[negative]! + (4 - choices[i])
+        } else if choices[i] == 5 || choices[i] == 6 || choices[i] == 7 {
+            dict[positive] = dict[positive]! + (choices[i] - 4)
+        } 
+    }
+    var ans = ""
+    if dict["R"]! > dict["T"]! { ans += "R" }
+    else if dict["R"]! < dict["T"]! { ans += "T" }
+    else { ans += "R" }
+    
+    if dict["C"]! > dict["F"]! { ans += "C" }
+    else if dict["C"]! < dict["F"]! { ans += "F" }
+    else { ans += "C" }
+    
+    if dict["J"]! > dict["M"]! { ans += "J" }
+    else if dict["J"]! < dict["M"]! { ans += "M" }
+    else { ans += "J" }
+    
+    if dict["A"]! > dict["N"]! { ans += "A" }
+    else if dict["A"]! < dict["N"]! { ans += "N" }
+    else { ans += "A" }
+    print(dict)
+    return ans
+}
