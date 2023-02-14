@@ -1,0 +1,40 @@
+import Foundation
+
+func solution(_ alp:Int, _ cop:Int, _ problems:[[Int]]) -> Int {
+    var alg = alp
+    var cod = cop
+    var time = 0
+    var max_cod = Int.min
+    var max_alg = Int.min
+    //
+    for problem in problems {
+        max_alg = max(max_alg, problem[0])
+        max_cod = max(max_cod, problem[1])
+    }
+    alg = min(alg, max_alg)
+    cod = min(cod, max_cod)
+    //
+    var dp = Array(repeating: Array(repeating: Int.max, count: 155), count: 155)
+    dp[alg][cod] = 0
+    for i in alg...max_alg {
+        for j in cod...max_cod {
+            dp[i+1][j] = min(dp[i][j] + 1, dp[i+1][j]) 
+            dp[i][j+1] = min(dp[i][j] + 1, dp[i][j+1])
+            
+            for problem in problems {
+                let alg_req = problem[0]
+                let cod_req = problem[1]
+                let alg_rwd = problem[2]
+                let cod_rwd = problem[3]
+                let cost = problem[4]
+                if i < alg_req || j < cod_req { continue }
+                var _i = min(max_alg, i + alg_rwd)
+                var _j = min(max_cod, j + cod_rwd)
+                dp[_i][_j] = min(dp[_i][_j], dp[i][j] + cost)
+            }
+        }
+    }
+    var ans = dp[max_alg][max_cod]
+    
+    return ans
+}
