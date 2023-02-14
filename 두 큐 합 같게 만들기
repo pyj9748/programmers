@@ -1,0 +1,42 @@
+import Foundation
+
+func solution(_ queue1:[Int], _ queue2:[Int]) -> Int {
+    var sum1: Int64 = 0
+    var sum2: Int64 = 0
+    var arr = (queue1 + queue2).map { Int64($0) }
+    var st1 = 0
+    var end1 = queue1.count - 1
+    var st2 = queue1.count
+    var end2 = arr.count - 1
+    // 
+    for i in st1...end1 {
+        sum1 += arr[i]
+    }
+    for i in st2...end2 {
+        sum2 += arr[i]
+    }
+    if (sum1 + sum2) % 2 == 1 {
+        return -1
+    }
+    
+    var cnt = 0
+    while sum1 != sum2 {
+        if cnt > 2 * arr.count {
+            return -1
+        }
+        if sum1 < sum2 {
+            end1 = (end1 + 1) % arr.count 
+            st2 = (st2 + 1) % arr.count 
+            sum1 += arr[end1]
+            sum2 -= arr[end1]
+        } else {
+            end2 = (end2 + 1) % arr.count 
+            st1 = (st1 + 1) % arr.count 
+            sum1 -= arr[end2]
+            sum2 += arr[end2]
+        }
+        cnt += 1
+    }
+    
+    return cnt
+}
