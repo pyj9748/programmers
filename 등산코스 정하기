@@ -1,0 +1,164 @@
+import Foundation
+var dict = [Int : [Int : Int]]()
+var d = [Int]()
+var isSummit = [Bool]()
+
+func solution(_ n:Int, _ paths:[[Int]], _ gates:[Int], _ summits:[Int]) -> [Int] {
+    d = Array(repeating: Int.max , count: n + 1)
+    isSummit = Array(repeating: false , count: n + 1)
+    for summit in summits {
+        isSummit[summit] = true
+    }
+    //
+    for path in paths {
+        var temp1 = dict[path[0]] != nil ? dict[path[0]]! : [Int : Int ]()
+        temp1[path[1]] = path[2]
+        dict[path[0]] = temp1
+        
+        var temp2 = dict[path[1]] != nil ? dict[path[1]]! : [Int : Int ]()
+        temp2[path[0]] = path[2]
+        dict[path[1]] = temp2
+    }
+    //
+    let heap = Heap<Int>([], isMaxHeap: false)
+    for gate in gates {
+        d[gate] = 0
+        heap.push(gate)
+    }
+    while !heap.isEmpty {
+        let top = heap.popRoot()!
+        let keys = dict[top]!.keys
+        for next in keys {
+            let nextNode = next
+            let value = dict[top]![nextNode]!
+            if d[nextNode] <= max(d[top], value) { continue }
+            d[nextNode] = max(d[top], value)
+            if(!isSummit[nextNode]) { heap.push(nextNode)}
+        }   
+    }
+    var ans = summits[0]
+    for summit in summits {
+        if d[summit] < d[ans] {
+            ans = summit
+        } else if d[summit] == d[ans] && summit < ans { ans = summit }
+        
+    }
+    
+    return [ans, d[ans]]
+}
+class Heap<T: Comparable> {
+    var heapArray: [T]
+    var root: T? {
+        if isMaxHeap {
+            maxHeapify()
+        } else {
+            minHeapify()
+        }
+        return heapArray.first
+    }
+    var count: Int {
+        return heapArray.count
+    }
+    var isEmpty: Bool {
+        return heapArray.isEmpty
+    }
+    var isMaxHeap: Bool
+    
+    init(_ n: [T], isMaxHeap: Bool) {
+        heapArray = n
+        self.isMaxHeap = isMaxHeap
+    }
+    func isLeftChildExist(_ parent: Int) -> Bool {
+        if parent * 2 + 1 >= count {
+            return false
+        } else {
+            return true
+        }
+    }
+    func isRightChildExist(_ parent: Int) -> Bool {
+        if parent * 2 + 2 >= count {
+            return false
+        } else {
+            return true
+        }
+    }
+    func parentIndex(_ child: Int) -> Int {
+        return child / 2
+    }
+    func leftChildIndex(_ parent: Int) -> Int {
+        return parent * 2 + 1
+    }
+    func rightChildIndex(_ parent: Int) -> Int {
+        return parent * 2 + 2
+    }
+    func maxHeapify() {
+        isMaxHeap = true
+        var i = count / 2
+        while i >= 0 {
+            var bigChild: Int = 0
+            if isLeftChildExist(i) && isRightChildExist(i) {
+                if heapArray[leftChildIndex(i)] <= heapArray[rightChildIndex(i)] {
+                    bigChild = rightChildIndex(i)
+                } else {
+                    bigChild = leftChildIndex(i)
+                }
+            } else if isLeftChildExist(i) && !isRightChildExist(i) {
+                bigChild = leftChildIndex(i)
+            } else if !isLeftChildExist(i) && !isRightChildExist(i) {
+                i -= 1
+                continue
+            }
+            
+            if heapArray[bigChild] >= heapArray[i] {
+                let temp = heapArray[bigChild]
+                heapArray[bigChild] = heapArray[i]
+                heapArray[i] = temp
+            }
+            i -= 1
+        }
+    }
+    func minHeapify() {
+        isMaxHeap = false
+        var i = count / 2
+        while i >= 0 {
+            var smallChild: Int = 0
+            if isLeftChildExist(i) && isRightChildExist(i) {
+                if d[heapArray[leftChildIndex(i)] as! Int ] >= d[heapArray[rightChildIndex(i)] as! Int] {
+                    smallChild = rightChildIndex(i)
+                } else {
+                    smallChild = leftChildIndex(i)
+                }
+            } else if isLeftChildExist(i) && !isRightChildExist(i) {
+                smallChild = leftChildIndex(i)
+            } else if !isLeftChildExist(i) && !isRightChildExist(i) {
+                i -= 1
+                continue
+            }
+            
+            if d[heapArray[smallChild] as! Int] <= d[heapArray[i] as! Int] {
+                let temp = heapArray[smallChild]
+                heapArray[smallChild] = heapArray[i]
+                heapArray[i] = temp
+            }
+            i -= 1
+        }
+    }
+    func popRoot() -> T? {
+        if isMaxHeap {
+            maxHeapify()
+        } else {
+            minHeapify()
+        }
+        if !heapArray.isEmpty {
+            let temp = heapArray[heapArray.count - 1]
+            heapArray[heapArray.count - 1] = heapArray[0]
+            heapArray[0] = temp
+        }
+        let rootValue = heapArray.popLast()
+        
+        return rootValue
+    }
+    func push(_ n: T) {
+        heapArray.append(n)
+    }
+}
