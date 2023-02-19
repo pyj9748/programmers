@@ -1,0 +1,32 @@
+import Foundation
+
+func solution(_ today:String, _ terms:[String], _ privacies:[String]) -> [Int] {
+    var dict = [String : Int]()
+    var ans = [Int]()
+    let arr = today.split(separator: ".").map { String($0) }
+    let todayI = month2i(Int(arr[0])!, Int(arr[1])!, Int(arr[2])!) 
+    //
+    for term in terms {
+        let temp = term.split(separator: " ").map { String($0) }
+        dict[temp[0]] = Int(temp[1])!
+    }
+    //
+    for i in 0..<privacies.count {
+        let temp = privacies[i].split(separator: " ").map { String($0) }
+        let date = temp[0].split(separator: ".").map { Int(String($0))! }
+        let key = temp[1]
+        let dday = month2i(date[0], date[1], date[2]) + (dict[key]! * 28)
+        if dday <= todayI  {
+            ans.append(i + 1)
+        }
+    }
+    
+    
+    return ans
+}
+func month2i(_ y: Int, _ m: Int, _ d: Int) -> Int {
+    var i = 336 * y
+    i += m * 28
+    i += d
+    return i
+}
