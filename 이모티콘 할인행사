@@ -1,0 +1,53 @@
+import Foundation
+var max_Subs = Int.min
+var max_Sales = Int.min
+var emotis: [Int] = []
+var uses = [[Int]]()
+var len = 0
+func solution(_ users:[[Int]], _ emoticons:[Int]) -> [Int] {
+    emotis = emoticons
+    uses = users
+    len = emoticons.count
+    //
+    permutation([],0)
+    
+    return [max_Subs, max_Sales]
+}
+
+func result(_ discount: [Int]) {
+    var subs = 0
+    var sales = 0
+    for user in uses {
+        var sale = 0
+        for idx in 0..<emotis.count {
+            if discount[idx] >= user[0] {
+                sale += ((100 - discount[idx]) * emotis[idx]) / 100
+            }
+        }
+        if sale >= user[1] {
+            subs += 1
+            sale = 0
+        }
+        sales += sale
+    }
+    
+    if subs > max_Subs {
+        max_Subs = subs
+        max_Sales = sales
+    } else if subs == max_Subs{
+        max_Sales = max(max_Sales, sales)
+    }
+    
+}
+func permutation(_ arr: [Int], _ depth: Int) {
+    if depth == len {
+        result(arr)
+        return
+    }
+    var _arr = arr
+    for a in [10, 20, 30, 40] {
+        _arr.append(a)
+        permutation(_arr, depth + 1)
+        _arr.removeLast()
+    }
+}
