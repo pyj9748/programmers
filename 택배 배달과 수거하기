@@ -1,0 +1,24 @@
+func solution(_ cap:Int, _ n:Int, _ deliveries:[Int], _ pickups:[Int]) -> Int64 {
+    var answer: Int = 0    
+    var delivery: Int = 0
+    var pickUp: Int = 0
+
+    for index in (0..<n).reversed() {
+        if deliveries[index] == 0 && pickups[index] == 0 {
+            continue
+        }
+        var count: Int = 0
+
+        while deliveries[index] > delivery || pickups[index] > pickUp {
+            delivery += cap
+            pickUp += cap
+            count += 1
+        }
+        delivery -= deliveries[index]
+        pickUp -= pickups[index]
+
+        answer += (index + 1) * count * 2
+    }
+
+    return Int64(answer)
+}
