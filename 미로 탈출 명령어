@@ -1,0 +1,102 @@
+import Foundation
+
+func solution(_ n:Int, _ m:Int, _ x:Int, _ y:Int, _ r:Int, _ c:Int, _ k:Int) -> String {
+    var q = [[Int]]()
+    var sq = [String]()
+    var ans = ""
+    var cnt = 0
+    q.append([x, y, 0])
+    sq.append("")
+    while !q.isEmpty {
+        let top = q.removeLast()
+        let s = sq.removeLast()
+        let a = top[0]
+        let b = top[1]
+        let d = top[2]
+        let leftDist = k - d
+        let diff = abs(r - a) + abs(c - b)
+        if abs(diff - leftDist) % 2 == 1 { return "impossible" }
+        if leftDist == 0 { 
+            //print("end")
+            ans = s
+            break 
+        }
+        //print(a, b, d, s)
+        // 거리가 남는 경우
+        if leftDist > diff {
+            //print("거리가 남는 경우 " ,"남은 거리 :", leftDist, "가야 하는 거리 :", diff)
+            if a == n && b == 1 {
+                var ld = leftDist 
+                var ns = s
+                var cnt = 0
+                while ld >= diff + 2 {
+                    // 우
+                    if (leftDist >= diff + 2) {
+                        ld -= 2
+                        ns += "rl"
+                        cnt += 2
+                        continue
+                    }
+                    // 상
+                    if (leftDist >= diff + 2) {
+                        ld -= 2
+                        ns += "ud"
+                        cnt += 2
+                        continue
+                    }
+                }
+                q.append([a, b, d + cnt])
+                sq.append(ns)
+                
+            } else {
+               // 하
+                if a + 1 <= n {
+                    q.append([a + 1, b, d + 1])
+                    sq.append(s + "d")
+                    continue
+                }
+                // 좌
+                if b - 1 >= 1 {
+                    q.append([a, b - 1, d + 1])
+                    sq.append(s + "l")
+                    continue
+                } 
+            }
+        }
+        // 거리가 딱 맞는 경우
+        else if leftDist == diff {
+            //print("거리가 딱 맞는 경우" ,"남은 거리 :", leftDist, "가야 하는 거리 :", diff)
+            // 하
+            if a < r && a + 1 <= n {
+                q.append([a + 1, b, d + 1])
+                sq.append(s + "d")
+                continue
+            }
+            // 좌
+            if b > c && b - 1 >= 1 {
+                q.append([a, b - 1, d + 1])
+                sq.append(s + "l")
+                continue
+            }
+            // 우
+            if b < c && b + 1 <= m {
+                q.append([a, b + 1, d + 1])
+                sq.append(s + "r")
+                continue
+            }
+            // 상
+            if a > r && a - 1 >= 1 {
+                q.append([a - 1, b, d + 1])
+                sq.append(s + "u")
+                continue
+            }   
+        }
+        // 남은 이동거리가 부족한 경우
+        else {
+            //print("남은 이동거리가 부족한 경우" ,"남은 거리 :", leftDist, "가야 하는 거리 :", diff)
+            return "impossible"
+        }
+    }
+    if ans.count != k { return "impossible" }
+    return ans
+}
