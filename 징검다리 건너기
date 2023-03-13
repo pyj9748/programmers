@@ -1,0 +1,27 @@
+import Foundation
+
+func solution(_ stones:[Int], _ k:Int) -> Int {
+    var le = 0
+    var ri = 200000000
+    var mid = (le + ri) / 2
+    while le <= ri {
+        mid = (le + ri) / 2
+        var cnt = 0
+        for i in 0..<stones.count {
+            if stones[i] - mid < 0 {
+                cnt += 1
+                if cnt >= k {
+                    break
+                }
+            } else {
+                cnt = 0
+            }
+        }
+        if cnt >= k {
+            ri = mid - 1
+        } else {
+            le = mid + 1
+        }
+    }
+    return ri
+}
