@@ -1,0 +1,27 @@
+import Foundation
+
+func solution(_ n:Int, _ lost:[Int], _ reserve:[Int]) -> Int {
+    var rSet = Set(reserve)
+    var lSet = Set(lost)
+    var ans = n - lost.count  
+    //
+    for l in lost {
+        if rSet.contains(l) {
+            rSet.remove(l)
+            lSet.remove(l)
+            ans += 1
+        }
+    }
+    //
+    var larr = Array(lSet).sorted()
+    for l in larr {
+        if rSet.contains(l - 1) {
+            rSet.remove(l - 1)
+            ans += 1
+        } else if rSet.contains(l + 1) {
+            rSet.remove(l + 1)
+            ans += 1
+        }
+    }
+    return ans
+}
