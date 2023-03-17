@@ -1,0 +1,39 @@
+import Foundation
+
+func solution(_ number:String, _ k:Int) -> String {
+    let arr = Array(number).map{String($0)}
+    var st = [String]()
+    var cnt = 0
+    for c in arr {
+        if st.isEmpty { 
+            st.append(c) 
+            continue
+        }
+        if cnt > k {
+            st.append(c)
+            continue
+        }
+        if st[st.count - 1] < c {
+            while !st.isEmpty && cnt < k {
+                let top = st.removeLast()
+                if top < c {
+                    cnt += 1
+                    continue
+                } 
+                st.append(top)
+                break                    
+            }
+            st.append(c)
+        } else if st[st.count - 1] >= c {
+            st.append(c)
+        }
+    }
+    var ans = st.reduce("", +)
+    if cnt < k {
+        for i in 0..<(k - cnt) {
+            ans.removeLast()
+        }
+    }
+    
+    return ans
+}
