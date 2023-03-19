@@ -1,0 +1,60 @@
+func solution(_ str1:String, _ str2:String) -> Int {
+    var arr1 = [Character]()
+    var arr2 = [Character]()
+    for c in str1.lowercased() {
+        arr1.append(c)
+    }
+    for c in str2.lowercased() {
+        arr2.append(c)
+    }
+    var dict1 = [String : Int]()
+    var dict2 = [String : Int]()
+    var set1 = Set<String>()
+    var set2 = Set<String>()
+    for i in 0..<(arr1.count - 1) {
+        if arr1[i].isLetter && arr1[i+1].isLetter {
+            let key = String(arr1[i]) + String(arr1[i + 1]) 
+            set1.insert(key)
+            let a = dict1[key] != nil ? dict1[key]! : 0
+            dict1[key] = a + 1
+        } 
+        
+    }
+    for i in 0..<(arr2.count - 1) {
+        if arr2[i].isLetter && arr2[i+1].isLetter {
+            let key = String(arr2[i]) + String(arr2[i + 1]) 
+            set2.insert(key)
+            let a = dict2[key] != nil ? dict2[key]! : 0
+            dict2[key] = a + 1
+        } 
+    }
+    let inter = set1.intersection(set2)  
+    let uni = set1.union(set2)
+    var a = 0
+    for i in inter {
+        if let cnt1 = dict1[i], let cnt2 = dict2[i] {
+            a += min(cnt1, cnt2)
+        }
+    }
+    var b = 0
+    for u in uni {
+        if let cnt1 = dict1[u], let cnt2 = dict2[u] {
+            b += max(cnt1, cnt2)
+            continue
+        }
+        if let cnt1 = dict1[u] {
+            b += cnt1
+            continue
+        }  
+        if let cnt1 = dict2[u] {
+            b += cnt1
+            continue
+        } 
+        
+    }
+    if b == 0 {
+        return 65536
+    }
+    let ans = (Double(a) / Double(b)) * 65536
+    return Int(ans)
+}
