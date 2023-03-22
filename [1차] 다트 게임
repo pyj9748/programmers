@@ -1,0 +1,56 @@
+func solution(_ dartResult:String) -> Int {
+    var arr: [Int] = [0,0,0]
+    var strs = [String]()
+    var temp = ""
+    for c in dartResult {
+        if c.isNumber {
+            if let t = Int(temp) {
+                temp += String(c)
+                continue
+            }
+            if temp == "" {
+                temp += String(c)
+            } else {
+                strs.append(temp)
+                temp = String(c)
+            }
+        } else {
+            temp += String(c)
+        }
+    }
+    strs.append(temp)
+    let arrs = strs.map { Array($0) }
+    for k in 0..<3 {
+        var num = 0
+        var idx = 0
+        while idx < arrs[k].count && arrs[k][idx].isNumber {
+            num = (num * 10) + Int(String(arrs[k][idx]))!
+            idx += 1
+        }
+        arr[k] = num
+        for i in idx..<arrs[k].count {
+            switch arrs[k][i] {
+            case "S":
+                continue
+            case "D":
+                arr[k] = arr[k] * arr[k]
+            case "T":
+                arr[k] = arr[k] * arr[k] * arr[k]
+            case "*":
+                if k == 0 {
+                    arr[k] *= 2
+                } else {
+                    arr[k] *= 2
+                    arr[k-1] *= 2
+                }
+                
+            case "#":
+                arr[k] *= -1
+            default:
+                break
+            }
+        }
+    }
+    
+    return arr.reduce(0, +)
+}
