@@ -1,0 +1,24 @@
+func solution(_ n:Int, _ t:Int, _ m:Int, _ p:Int) -> String {
+    var ans = ""
+    var str = ""
+    var now = 1
+    var _p = p
+    if m == p {
+        _p = 0
+    }
+    for num in 0...Int.max{
+        let arr = Array(String(num, radix: n))
+        for c in arr {
+            if (now % m) == _p {
+                ans += String(c)
+                if ans.count == t {
+                    return ans.uppercased()
+                }
+            }
+            now += 1
+        }
+    }
+    
+    
+    return ""
+}
