@@ -1,0 +1,114 @@
+import Foundation
+
+func solution(_ jobs:[[Int]]) -> Int {
+    var total = 0
+    var current = 0
+    var sortedByStartTime = jobs.sorted {
+        if $0[0] == $1[0] { return $0[1] > $1[1]}
+        else { return $0[0] > $1[0] }
+    }
+    var heap = Heap<[Int]>([sortedByStartTime.removeLast()], comparator: {
+        if $0[1] == $1[1] { return $0[0] < $1[0] }
+        else { return $0[1] < $1[1] } 
+    })
+    current = heap.arr[0][0]
+    
+    while !heap.arr.isEmpty {
+        let job = heap.pop()!
+        if current > job[0] {
+            total += (current - job[0]) + job[1]
+            current += job[1]
+        } else {
+            total += job[1]
+            current = job[0] + job[1]
+        }
+        
+        while !sortedByStartTime.isEmpty && sortedByStartTime.last![0] <= current {
+            heap.push(sortedByStartTime.removeLast())
+        }
+        
+        if heap.arr.isEmpty && !sortedByStartTime.isEmpty{
+            heap.push(sortedByStartTime.removeLast())
+        }
+    }
+    
+    return Int(total / jobs.count)
+}
+
+final class Heap<T> {
+    typealias Comparator = (T, T) -> Bool
+    
+    var arr: [T]
+    var comparator: Comparator
+    
+    init(_ arr: [T], comparator: @escaping Comparator) {
+        self.arr = arr
+        self.comparator = comparator
+        makeHeap()
+    }
+    func makeHeap() {
+        for i in stride(from: arr.count - 1, through: 0, by: -1) {
+            heapifyDown(idx: i)
+        }
+    }
+    func heapifyDown(idx: Int) {
+        var i = idx
+        while (i * 2) + 1 < arr.count {
+            if i * 2 + 2 < arr.count { // 2
+                let lc = i * 2 + 1
+                let rc = i * 2 + 2
+                var c = lc
+                if comparator(arr[rc], arr[lc]) {
+                    c = rc
+                }
+                
+                if !comparator(arr[i], arr[c]) {
+                    arr.swapAt(i,c)
+                    i = c
+                } else {
+                    break
+                }
+                
+            } else { // 1
+                let c = 2 * i + 1
+                if !comparator(arr[i], arr[c]) {
+                    arr.swapAt(i,c)
+                    i = c
+                } else {
+                    break
+                }
+            }
+        }
+    }
+    func heapifyUp() {
+        var i = arr.count - 1
+        var p = 0
+        while i > 0 {
+            p = (i - 1) / 2
+            if !comparator(arr[p], arr[i]) {
+                arr.swapAt(p,i) 
+                i = p
+            } else {
+                break
+            }
+        }
+    }
+    func push(_ val: T) {
+        arr.append(val)
+        heapifyUp()
+    }
+    
+    func pop() -> T? {
+        if arr.count == 0 { return nil } 
+        let ret = arr[0]
+        arr[0] = arr[arr.count - 1]
+        arr.removeLast()
+        heapifyDown(idx: 0)
+        return ret
+    }
+}
+
+
+
+
+
